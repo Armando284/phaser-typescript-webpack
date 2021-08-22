@@ -39,8 +39,10 @@ module.exports = {
         },
         {
           // every file inside src/assets folder
-          from: 'assets/*',
-          context: 'src/'
+          from: 'assets',
+          to: 'assets',
+          context: 'src/',
+          noErrorOnMissing: true
         }
       ]
     })
