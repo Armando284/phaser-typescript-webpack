@@ -23,6 +23,6 @@ module.exports = {
 
   // development server root is "src" folder
   devServer: {
-    contentBase: './src'
+    static: './src/'
   }
 };
