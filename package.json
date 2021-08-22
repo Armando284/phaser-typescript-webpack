@@ -4,7 +4,8 @@
   "description": "html5 game Demo using phaser3, webpack and typescript",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "dev": "webpack serve --open --config webpack.development.js"
   },
   "keywords": [
     "Phaser3",
