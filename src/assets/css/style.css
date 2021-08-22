@@ -5,3 +5,7 @@
 body {
   overflow: hidden;
 }
+#game_conntainer {
+  width: 100vw;
+  height: 100vh;
+}
