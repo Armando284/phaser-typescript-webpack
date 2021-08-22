@@ -1,0 +1,28 @@
+{
+  "name": "phaser3-webpack-typescript",
+  "version": "1.0.0",
+  "description": "html5 game Demo using phaser3, webpack and typescript",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "Phaser3",
+    "Webpack",
+    "TypeScript",
+    "Game",
+    "HTML5"
+  ],
+  "author": "Armando Jose Peña Tamayo",
+  "license": "ISC",
+  "dependencies": {
+    "phaser": "^3.55.2"
+  },
+  "devDependencies": {
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "copy-webpack-plugin": "^9.0.1",
+    "webpack": "^5.51.1",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.0.0"
+  }
+}
