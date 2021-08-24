@@ -1,9 +1,9 @@
 import Phaser from 'phaser';
-import { Welcome } from './scenes/welcome.scene';
+import Welcome from './scenes/welcome.scene';
 
 
 const configObject: Phaser.Types.Core.GameConfig = {
-  backgroundColor: '#111111',
+  backgroundColor: '#000000',
   type: Phaser.AUTO,
   parent: 'game_container',
   width: '100%',
