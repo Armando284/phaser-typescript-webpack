@@ -1,6 +1,10 @@
 export default class WelcomeScene extends Phaser.Scene {
+
   background: Phaser.GameObjects.Image;
   start: Phaser.GameObjects.Image;
+  width: number;
+  height: number;
+
   constructor() {
     super('WelcomeScene');
   }
@@ -11,8 +15,10 @@ export default class WelcomeScene extends Phaser.Scene {
   }
 
   create() {
-    this.background = this.add.image(960 / 2, 300, 'logo');
-    this.start = this.add.image(960 / 2, 400, 'start')
+    this.width = Number(this.game.config.width);
+    this.height = Number(this.game.config.height);
+    this.background = this.add.image(this.width / 2, 300, 'logo');
+    this.start = this.add.image(this.width / 2, 400, 'start')
       .setScale(0.3)
       .setInteractive({ cursor: 'pointer' })
       .setDepth(20)

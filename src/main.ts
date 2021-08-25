@@ -9,8 +9,8 @@ const configObject: Phaser.Types.Core.GameConfig = {
   backgroundColor: '#000000',
   type: Phaser.AUTO,
   parent: 'game_container',
-  width: '100%',
-  height: '100%',
+  width: 1000,
+  height: 500,
   scale: {
     mode: Phaser.Scale.FIT,
   },
@@ -22,7 +22,7 @@ const configObject: Phaser.Types.Core.GameConfig = {
   physics: {
     default: "matter",
     matter: {
-      debug: false,
+      debug: true,
       gravity: { y: 0 },
     },
   },

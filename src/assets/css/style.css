@@ -8,7 +8,7 @@ body {
 }
 #game_container {
   width: 100vw;
-  max-width: 960px;
+  max-width: 1024px;
   height: 100vh;
   margin: 0 auto;
 }

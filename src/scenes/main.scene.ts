@@ -1,4 +1,8 @@
+import Player from '../characters/player';
+
 export default class MainScene extends Phaser.Scene {
+
+  player: Player;
 
   constructor() {
     super('MainScene');
@@ -8,6 +12,7 @@ export default class MainScene extends Phaser.Scene {
     this.load.image('tiles', '../assets/map/[Base]BaseChip_pipo.png');
     this.load.image('reliebe', '../assets/map/[A]Grass1-Dirt2_pipo.png');
     this.load.tilemapTiledJSON('map', '../assets/map/welcome.json');
+    Player.preload(this);
   }
 
   create() {
@@ -32,7 +37,25 @@ export default class MainScene extends Phaser.Scene {
     const layer2 = map.createLayer('road', reliebe, 0, 0);
     const layer3 = map.createLayer('objects', tileset, 0, 0);
     layer3.setCollisionByProperty({ obstacle: true });
+    this.player = new Player({
+      scene: this,
+      x: 500,
+      y: 450,
+      texture: 'knight',
+      frame: 'preview_0',
+    });
+
+    this.player.inputKeys = this.input.keyboard.addKeys({
+      up: Phaser.Input.Keyboard.KeyCodes.W,
+      down: Phaser.Input.Keyboard.KeyCodes.S,
+      left: Phaser.Input.Keyboard.KeyCodes.A,
+      right: Phaser.Input.Keyboard.KeyCodes.D,
+    });
   }
 
-  update() { }
+  update() {
+    if (this.player) {
+      this.player.update();
+    }
+  }
 }
