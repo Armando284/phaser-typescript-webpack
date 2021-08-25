@@ -1,39 +1,28 @@
-export default class Welcome extends Phaser.Scene {
-  image: Phaser.GameObjects.Image;
+export default class WelcomeScene extends Phaser.Scene {
+  background: Phaser.GameObjects.Image;
+  start: Phaser.GameObjects.Image;
   constructor() {
-    super('Welcome');
+    super('WelcomeScene');
   }
+
   preload() {
     this.load.image('logo', '../assets/images/phaser.png');
-    this.load.image("tiles", "../assets/map/[Base]BaseChip_pipo.png");
-    this.load.image("reliebe", "../assets/map/[A]Grass1-Dirt2_pipo.png");
-    this.load.tilemapTiledJSON("map", "../assets/map/welcome.json");
+    this.load.image('start', '../assets/ui/Button.png')
   }
+
   create() {
-    // this.image = this.add.image(400, 300, 'logo');
-    const map = this.make.tilemap({ key: "map" });
-    const tileset = map.addTilesetImage(
-      "[Base]BaseChip_pipo",
-      "tiles",
-      32,
-      32,
-      0,
-      0
-    );
-    const reliebe = map.addTilesetImage(
-      "[A]Grass1-Dirt2_pipo",
-      "reliebe",
-      32,
-      32,
-      0,
-      0
-    );
-    const layer1 = map.createLayer("floor", tileset, 0, 0);
-    const layer2 = map.createLayer("road", reliebe, 0, 0);
-    const layer3 = map.createLayer("objects", tileset, 0, 0);
-    layer3.setCollisionByProperty({ obstacle: true });
+    this.background = this.add.image(960 / 2, 300, 'logo');
+    this.start = this.add.image(960 / 2, 400, 'start')
+      .setScale(0.3)
+      .setInteractive({ cursor: 'pointer' })
+      .setDepth(20)
+      .setScrollFactor(0);
+    this.start.on('pointerdown', () => {
+      this.scene.start('MainScene');
+    }, this);
   }
+
   update() {
-    // this.image.rotation += 0.01;
+    this.background.rotation += 0.01;
   }
 }

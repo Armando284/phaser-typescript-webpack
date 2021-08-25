@@ -1,0 +1,84 @@
+{
+    "anims": [
+        {
+            "key": "k_back",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 6,
+            "frames": [
+                {
+                    "key": "knight",
+                    "frame": "preview_9"
+                },
+                {
+                    "key": "knight",
+                    "frame": "preview_10"
+                },
+                {
+                    "key": "knight",
+                    "frame": "preview_11"
+                }
+            ]
+        },
+        {
+            "key": "k_right",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 6,
+            "frames": [
+                {
+                    "key": "knight",
+                    "frame": "preview_6"
+                },
+                {
+                    "key": "knight",
+                    "frame": "preview_7"
+                },
+                {
+                    "key": "knight",
+                    "frame": "preview_8"
+                }
+            ]
+        },
+        {
+            "key": "k_left",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 6,
+            "frames": [
+                {
+                    "key": "knight",
+                    "frame": "preview_3"
+                },
+                {
+                    "key": "knight",
+                    "frame": "preview_4"
+                },
+                {
+                    "key": "knight",
+                    "frame": "preview_5"
+                }
+            ]
+        },
+        {
+            "key": "k_front",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 6,
+            "frames": [
+                {
+                    "key": "knight",
+                    "frame": "preview_0"
+                },
+                {
+                    "key": "knight",
+                    "frame": "preview_1"
+                },
+                {
+                    "key": "knight",
+                    "frame": "preview_2"
+                }
+            ]
+        }
+    ]
+}

@@ -1,5 +1,8 @@
 import Phaser from 'phaser';
-import Welcome from './scenes/welcome.scene';
+import PhaserMatterCollisionPlugin from "phaser-matter-collision-plugin";
+import WelcomeScene from './scenes/welcome.scene';
+import MainScene from './scenes/main.scene';
+import GameOverScene from './scenes/gameover.scene';
 
 
 const configObject: Phaser.Types.Core.GameConfig = {
@@ -11,7 +14,27 @@ const configObject: Phaser.Types.Core.GameConfig = {
   scale: {
     mode: Phaser.Scale.FIT,
   },
-  scene: Welcome
+  scene: [
+    WelcomeScene,
+    MainScene,
+    GameOverScene
+  ],
+  physics: {
+    default: "matter",
+    matter: {
+      debug: false,
+      gravity: { y: 0 },
+    },
+  },
+  plugins: {
+    scene: [
+      {
+        plugin: PhaserMatterCollisionPlugin,
+        key: "matterCollision",
+        mapping: "matterCollision",
+      },
+    ],
+  },
 };
 
 new Phaser.Game(configObject);
