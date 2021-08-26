@@ -15,6 +15,24 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
     } = data;
     super(scene.matter.world, x, y, texture, frame);
     this.scene.add.existing(this);
+
+    const { body, bodies } = this.scene.matter;
+
+    const playerCollider = bodies.circle(this.x, this.y, 12, {
+      isSensor: false,
+      label: "playerCollider",
+    });
+    const playerSensor = bodies.circle(this.x, this.y, 24, {
+      isSensor: true,
+      label: "playerSensor",
+    });
+
+    const compoundBody = body.create({
+      parts: [playerCollider, playerSensor],
+      frictionAir: 0.35,
+    });
+
+    this.setExistingBody(compoundBody);
     this.setFixedRotation();
     this.width = width;
     this.height = height;
@@ -65,9 +83,8 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
     } else if (this.inputKeys.down.isDown) {
       playerVelocity.y = 1;
       this.move(playerVelocity);
-    }
-
-    if (playerVelocity.x == 0 && playerVelocity.y == 0) {
+    } else {
+      this.setVelocity(0, 0);
       this.anims.stop();
     }
   }
