@@ -1,10 +1,11 @@
-import { GameObjects } from 'phaser';
 import Player from '../characters/player';
+import Goblin from '../enemies/goblin';
 import { width, height } from '../helpers/screen.helper';
 
 export default class MainScene extends Phaser.Scene {
 
   player: Player;
+  goblin: Goblin;
   width: number;
   height: number;
 
@@ -19,6 +20,7 @@ export default class MainScene extends Phaser.Scene {
     this.load.image('reliebe', '../assets/map/[A]Grass1-Dirt2_pipo.png');
     this.load.tilemapTiledJSON('map', '../assets/map/welcome.json');
     Player.preload(this);
+    Goblin.preload(this);
   }
 
   create() {
@@ -62,6 +64,14 @@ export default class MainScene extends Phaser.Scene {
       right: Phaser.Input.Keyboard.KeyCodes.D,
     });
 
+    this.goblin = new Goblin({
+      scene: this,
+      x: 800,
+      y: 800,
+      texture: 'goblin',
+      frame: 'enemy_19_0',
+    });
+
     this.matter.world.setBounds(0, 0, 30 * 32, 30 * 32);
 
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
@@ -74,7 +84,7 @@ export default class MainScene extends Phaser.Scene {
       // console.log('*****************************');
       // console.log('bodyB', bodyB);
 
-      if (bodyA.gameObject?.tile.properties.thorns && bodyB.label === "playerCollider") {
+      if ((bodyA.gameObject?.tile?.properties.thorns || bodyA.label === 'goblinCollider') && bodyB.label === 'playerCollider') {
         this.player.getHit();
       }
     });

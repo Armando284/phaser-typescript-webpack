@@ -1,0 +1,84 @@
+{
+    "anims": [
+        {
+            "key": "back",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 6,
+            "frames": [
+                {
+                    "key": "goblin",
+                    "frame": "enemy_19_9"
+                },
+                {
+                    "key": "goblin",
+                    "frame": "enemy_19_10"
+                },
+                {
+                    "key": "goblin",
+                    "frame": "enemy_19_11"
+                }
+            ]
+        },
+        {
+            "key": "right",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 6,
+            "frames": [
+                {
+                    "key": "goblin",
+                    "frame": "enemy_19_6"
+                },
+                {
+                    "key": "goblin",
+                    "frame": "enemy_19_7"
+                },
+                {
+                    "key": "goblin",
+                    "frame": "enemy_19_8"
+                }
+            ]
+        },
+        {
+            "key": "left",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 6,
+            "frames": [
+                {
+                    "key": "goblin",
+                    "frame": "enemy_19_3"
+                },
+                {
+                    "key": "goblin",
+                    "frame": "enemy_19_4"
+                },
+                {
+                    "key": "goblin",
+                    "frame": "enemy_19_5"
+                }
+            ]
+        },
+        {
+            "key": "front",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 6,
+            "frames": [
+                {
+                    "key": "goblin",
+                    "frame": "enemy_19_0"
+                },
+                {
+                    "key": "goblin",
+                    "frame": "enemy_19_1"
+                },
+                {
+                    "key": "goblin",
+                    "frame": "enemy_19_2"
+                }
+            ]
+        }
+    ]
+}

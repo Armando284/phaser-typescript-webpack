@@ -1,4 +1,5 @@
 import { width, height } from '../helpers/screen.helper';
+
 export default class Player extends Phaser.Physics.Matter.Sprite {
 
   inputKeys: any;
