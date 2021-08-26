@@ -49,25 +49,6 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
 
   }
 
-  move(playerVelocity: Phaser.Math.Vector2) {
-    const speed = 3;
-    playerVelocity.normalize();
-    playerVelocity.scale(speed);
-    this.setVelocity(playerVelocity.x, playerVelocity.y);
-
-    if (playerVelocity.y > 0) {
-      this.anims.play('k_front', true);
-    } else if (playerVelocity.y < 0) {
-      this.anims.play('k_back', true);
-    } else if (playerVelocity.y === 0) {
-      if (playerVelocity.x > 0) {
-        this.anims.play('k_right', true);
-      } else if (playerVelocity.x < 0) {
-        this.anims.play('k_left', true);
-      }
-    }
-  }
-
   update() {
     let playerVelocity = new Phaser.Math.Vector2();
 
@@ -87,5 +68,41 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
       this.setVelocity(0, 0);
       this.anims.stop();
     }
+  }
+
+  move(playerVelocity: Phaser.Math.Vector2): void {
+    const speed = 3;
+    playerVelocity.normalize();
+    playerVelocity.scale(speed);
+    this.setVelocity(playerVelocity.x, playerVelocity.y);
+
+    if (playerVelocity.y > 0) {
+      this.anims.play('k_front', true);
+    } else if (playerVelocity.y < 0) {
+      this.anims.play('k_back', true);
+    } else if (playerVelocity.y === 0) {
+      if (playerVelocity.x > 0) {
+        this.anims.play('k_right', true);
+      } else if (playerVelocity.x < 0) {
+        this.anims.play('k_left', true);
+      }
+    }
+  }
+
+  getHit(): void {
+    const text = this.scene.add.text(
+      this.x,
+      this.y - 64,
+      `!!!`,
+      {
+        font: "32px Arial",
+        color: "#ed1c24",
+      }
+    ).setDepth(10);
+    setTimeout(() => {
+      text.visible = false;
+      this.scene.scene.stop();
+      this.scene.scene.start('GameOverScene');
+    }, 600);
   }
 }

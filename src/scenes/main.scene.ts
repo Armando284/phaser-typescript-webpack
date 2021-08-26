@@ -1,3 +1,4 @@
+import { GameObjects } from 'phaser';
 import Player from '../characters/player';
 import { width, height } from '../helpers/screen.helper';
 
@@ -65,6 +66,19 @@ export default class MainScene extends Phaser.Scene {
 
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
       .startFollow(this.player);
+
+    this.matter.world.on('collisionstart', (event: any, bodyA: any, bodyB: any) => {
+      // console.log('event', event);
+      // console.log('*************************');
+      // console.log('bodyA', bodyA.gameObject);
+      // console.log('*****************************');
+      // console.log('bodyB', bodyB);
+
+      if (bodyA.gameObject?.tile.properties.thorns && bodyB.label === "playerCollider") {
+        this.player.getHit();
+      }
+    });
+
   }
 
   update() {

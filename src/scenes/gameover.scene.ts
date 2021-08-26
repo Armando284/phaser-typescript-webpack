@@ -22,6 +22,7 @@ export default class GameOverScene extends Phaser.Scene {
       .setDepth(20)
       .setInteractive({ cursor: 'pointer' });
     this.gameover.on('pointerdown', () => {
+      this.scene.stop();
       this.scene.start('WelcomeScene');
     }, this);
   }

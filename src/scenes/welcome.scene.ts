@@ -27,6 +27,7 @@ export default class WelcomeScene extends Phaser.Scene {
       .setDepth(20)
       .setScrollFactor(0);
     this.start.on('pointerdown', () => {
+      this.scene.stop();
       this.scene.start('MainScene');
     }, this);
   }

@@ -8,7 +8,7 @@ import { width, height } from './helpers/screen.helper'
 
 
 const configObject: Phaser.Types.Core.GameConfig = {
-  backgroundColor: '#ffffff',
+  backgroundColor: '#000000',
   type: Phaser.AUTO,
   parent: 'game_container',
   width: width,
