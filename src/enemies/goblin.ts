@@ -59,8 +59,20 @@ export default class Goblin extends Phaser.Physics.Matter.Sprite {
   update() {
     if (this.target) {
       const [dx, dy] = [this.target.x - this.x, this.target.y - this.y];
+      const goblinVelocity = {
+        x: Math.sign(dx) * this.SPEED,
+        y: Math.sign(dy) * this.SPEED
+      }
+
       if (Math.abs(dx) < this.RANGE && Math.abs(dy) < this.RANGE) {
-        this.setVelocity(Math.sign(dx) * this.SPEED, Math.sign(dy) * this.SPEED);
+        this.setVelocity(goblinVelocity.x, goblinVelocity.y);
+        const rotation = Phaser.Math.Angle.Between(this.x, this.y, this.target.x, this.target.y);
+
+        if (2 > rotation && rotation > 1) this.anims.play('front', true);
+        else if (-2 < rotation && rotation < -1) this.anims.play('back', true);
+        else if (1 >= rotation && rotation >= -1) this.anims.play('right', true);
+        else if (2 <= rotation || rotation <= -2) this.anims.play('left', true);
+
       }
     }
   }
