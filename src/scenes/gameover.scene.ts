@@ -1,3 +1,5 @@
+import { width, height } from '../helpers/screen.helper';
+
 export default class GameOverScene extends Phaser.Scene {
 
   gameover: Phaser.GameObjects.Image;
@@ -6,6 +8,8 @@ export default class GameOverScene extends Phaser.Scene {
 
   constructor() {
     super('GameOverScene');
+    this.width = width;
+    this.height = height;
   }
 
   preload() {
@@ -13,8 +17,6 @@ export default class GameOverScene extends Phaser.Scene {
   }
 
   create() {
-    this.width = Number(this.game.config.width);
-    this.height = Number(this.game.config.height);
     this.gameover = this.add.image(this.width / 2, this.height / 2, 'over')
       .setScrollFactor(0)
       .setDepth(20)

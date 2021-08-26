@@ -1,3 +1,5 @@
+import { width, height } from '../helpers/screen.helper';
+
 export default class WelcomeScene extends Phaser.Scene {
 
   background: Phaser.GameObjects.Image;
@@ -7,6 +9,8 @@ export default class WelcomeScene extends Phaser.Scene {
 
   constructor() {
     super('WelcomeScene');
+    this.width = width;
+    this.height = height;
   }
 
   preload() {
@@ -15,10 +19,9 @@ export default class WelcomeScene extends Phaser.Scene {
   }
 
   create() {
-    this.width = Number(this.game.config.width);
-    this.height = Number(this.game.config.height);
-    this.background = this.add.image(this.width / 2, 300, 'logo');
-    this.start = this.add.image(this.width / 2, 400, 'start')
+    this.background = this.add.image(this.width / 2, this.height / 2, 'logo')
+      .setScale(0.5);
+    this.start = this.add.image(this.width / 2, this.height - 50, 'start')
       .setScale(0.3)
       .setInteractive({ cursor: 'pointer' })
       .setDepth(20)
@@ -29,6 +32,5 @@ export default class WelcomeScene extends Phaser.Scene {
   }
 
   update() {
-    this.background.rotation += 0.01;
   }
 }

@@ -1,18 +1,20 @@
 import Phaser from 'phaser';
-import PhaserMatterCollisionPlugin from "phaser-matter-collision-plugin";
+import PhaserMatterCollisionPlugin from 'phaser-matter-collision-plugin';
 import WelcomeScene from './scenes/welcome.scene';
 import MainScene from './scenes/main.scene';
 import GameOverScene from './scenes/gameover.scene';
 
+import { width, height } from './helpers/screen.helper'
+
 
 const configObject: Phaser.Types.Core.GameConfig = {
-  backgroundColor: '#000000',
+  backgroundColor: '#ffffff',
   type: Phaser.AUTO,
   parent: 'game_container',
-  width: 1000,
-  height: 500,
+  width: width,
+  height: height,
   scale: {
-    mode: Phaser.Scale.FIT,
+    zoom: 2
   },
   scene: [
     WelcomeScene,
@@ -20,7 +22,7 @@ const configObject: Phaser.Types.Core.GameConfig = {
     GameOverScene
   ],
   physics: {
-    default: "matter",
+    default: 'matter',
     matter: {
       debug: true,
       gravity: { y: 0 },
@@ -30,8 +32,8 @@ const configObject: Phaser.Types.Core.GameConfig = {
     scene: [
       {
         plugin: PhaserMatterCollisionPlugin,
-        key: "matterCollision",
-        mapping: "matterCollision",
+        key: 'matterCollision',
+        mapping: 'matterCollision',
       },
     ],
   },
