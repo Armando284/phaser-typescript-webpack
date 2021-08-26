@@ -40,6 +40,7 @@ export default class MainScene extends Phaser.Scene {
     );
     const layer1 = map.createLayer('floor', tileset, 0, 0);
     const layer2 = map.createLayer('road', reliebe, 0, 0);
+    const layer2b = map.createLayer('addons', tileset, 0, 0);
     const layer3 = map.createLayer('objects', tileset, 0, 0);
     layer3.setCollisionByProperty({ obstacle: true })
       .setDepth(10);

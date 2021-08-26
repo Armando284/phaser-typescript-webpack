@@ -50,7 +50,7 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
   }
 
   move(playerVelocity: Phaser.Math.Vector2) {
-    const speed = 2.5;
+    const speed = 3;
     playerVelocity.normalize();
     playerVelocity.scale(speed);
     this.setVelocity(playerVelocity.x, playerVelocity.y);
