@@ -1,9 +1,14 @@
+import Player from '../characters/player';
 import { width, height } from '../helpers/screen.helper';
 
 export default class Goblin extends Phaser.Physics.Matter.Sprite {
 
   width: number;
   height: number;
+  target: Player;
+  RANGE: number;
+  SPEED: number;
+
 
   constructor(data: any) {
     const {
@@ -22,7 +27,7 @@ export default class Goblin extends Phaser.Physics.Matter.Sprite {
       isSensor: false,
       label: "goblinCollider",
     });
-    const goblinSensor = bodies.circle(this.x, this.y, 96, {
+    const goblinSensor = bodies.circle(this.x, this.y, 256, {
       isSensor: true,
       label: "goblinSensor",
     });
@@ -36,6 +41,8 @@ export default class Goblin extends Phaser.Physics.Matter.Sprite {
     this.setFixedRotation();
     this.width = width;
     this.height = height;
+    this.RANGE = 256;
+    this.SPEED = 2;
   }
 
   static preload(scene: Phaser.Scene) {
@@ -46,6 +53,21 @@ export default class Goblin extends Phaser.Physics.Matter.Sprite {
       'assets/mobs/goblin_atlas.json'
     );
     scene.load.animation('goblin_anim', 'assets/mobs/goblin_anim.json');
+
+  }
+
+  update() {
+    if (this.target) {
+      const [dx, dy] = [this.target.x - this.x, this.target.y - this.y];
+      if (Math.abs(dx) < this.RANGE && Math.abs(dy) < this.RANGE) {
+        this.setVelocity(Math.sign(dx) * this.SPEED, Math.sign(dy) * this.SPEED);
+      }
+    }
+  }
+
+  chase(player: Player) {
+    console.warn('Chase!!');
+    this.target = player;
 
   }
 

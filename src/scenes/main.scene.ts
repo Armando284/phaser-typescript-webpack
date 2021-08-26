@@ -78,20 +78,23 @@ export default class MainScene extends Phaser.Scene {
       .startFollow(this.player);
 
     this.matter.world.on('collisionstart', (event: any, bodyA: any, bodyB: any) => {
-      // console.log('event', event);
-      // console.log('*************************');
-      // console.log('bodyA', bodyA.gameObject);
-      // console.log('*****************************');
-      // console.log('bodyB', bodyB);
+      console.log('event', event);
+      console.log('*************************');
+      console.log('bodyA', bodyA);
+      console.log('*****************************');
+      console.log('bodyB', bodyB);
 
-      if ((bodyA.gameObject?.tile?.properties.thorns || bodyA.label === 'goblinCollider') && bodyB.label === 'playerCollider') {
-        this.player.getHit();
-      }
+      if (bodyA.gameObject?.tile?.properties.thorns && bodyB.label === 'playerCollider') this.player.getHit();
+
+      if (bodyA.label === 'playerCollider' && bodyB.label === 'goblinCollider') this.player.getHit();
+
+      if (bodyA.label === 'playerSensor' && bodyB.label === 'goblinSensor') this.goblin.chase(this.player);
     });
 
   }
 
   update() {
     this.player?.update();
+    this.goblin?.update();
   }
 }
