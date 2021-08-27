@@ -51,8 +51,7 @@ export default class MainScene extends Phaser.Scene {
 
     this.player = new Player({
       scene: this,
-      x: this.width / 4,
-      y: this.height,
+      ...this.randomPos(4),
       texture: 'knight',
       frame: 'preview_0',
     });
@@ -66,8 +65,7 @@ export default class MainScene extends Phaser.Scene {
 
     this.goblin = new Goblin({
       scene: this,
-      x: 800,
-      y: 800,
+      ...this.randomPos(),
       texture: 'goblin',
       frame: 'enemy_19_0',
     });
@@ -91,6 +89,13 @@ export default class MainScene extends Phaser.Scene {
       if (bodyA.label === 'playerSensor' && bodyB.label === 'goblinSensor') this.goblin.chase(this.player);
     });
 
+  }
+
+  randomPos(section: number = 1) {
+    return {
+      x: Math.random() * (this.width / section),
+      y: Math.random() * (this.height / section)
+    }
   }
 
   update() {

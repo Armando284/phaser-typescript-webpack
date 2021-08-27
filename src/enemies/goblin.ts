@@ -9,7 +9,6 @@ export default class Goblin extends Phaser.Physics.Matter.Sprite {
   RANGE: number;
   SPEED: number;
 
-
   constructor(data: any) {
     const {
       scene,
@@ -73,14 +72,11 @@ export default class Goblin extends Phaser.Physics.Matter.Sprite {
         else if (1 >= rotation && rotation >= -1) this.anims.play('right', true);
         else if (2 <= rotation || rotation <= -2) this.anims.play('left', true);
 
-      }
+      } else this.anims.stop();
     }
   }
 
   chase(player: Player) {
-    console.warn('Chase!!');
     this.target = player;
-
   }
-
 }

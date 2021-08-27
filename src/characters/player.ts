@@ -102,8 +102,8 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
     ).setDepth(10);
     setTimeout(() => {
       text.visible = false;
-      // this.scene.scene.stop();
-      // this.scene.scene.start('GameOverScene');
+      this.scene.scene.stop();
+      this.scene.scene.start('GameOverScene');
     }, 600);
   }
 }
