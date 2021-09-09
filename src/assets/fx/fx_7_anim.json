@@ -1,0 +1,28 @@
+{
+    "anims": [
+        {
+            "key": "fx_7",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 9,
+            "frames": [
+                {
+                    "key": "fx_7",
+                    "frame": "7_0"
+                },
+                {
+                    "key": "fx_7",
+                    "frame": "7_1"
+                },
+                {
+                    "key": "fx_7",
+                    "frame": "7_2"
+                },
+                {
+                    "key": "fx_7",
+                    "frame": "7_3"
+                }
+            ]
+        }
+    ]
+}

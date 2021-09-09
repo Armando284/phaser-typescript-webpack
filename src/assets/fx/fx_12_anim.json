@@ -1,0 +1,32 @@
+{
+    "anims": [
+        {
+            "key": "fx_12",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 9,
+            "frames": [
+                {
+                    "key": "fx_12",
+                    "frame": "12_0"
+                },
+                {
+                    "key": "fx_12",
+                    "frame": "12_1"
+                },
+                {
+                    "key": "fx_12",
+                    "frame": "12_2"
+                },
+                {
+                    "key": "fx_12",
+                    "frame": "12_3"
+                },
+                {
+                    "key": "fx_12",
+                    "frame": "12_4"
+                }
+            ]
+        }
+    ]
+}

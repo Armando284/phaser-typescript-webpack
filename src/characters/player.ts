@@ -5,6 +5,9 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
   inputKeys: any;
   width: number;
   height: number;
+  maxHP: number;
+  HP: number;
+  healthbar: Phaser.GameObjects.Sprite;
 
   constructor(data: any) {
     const {
@@ -19,7 +22,7 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
 
     const { body, bodies } = this.scene.matter;
 
-    const playerCollider = bodies.circle(this.x, this.y, 12, {
+    const playerCollider = bodies.circle(this.x, this.y, 14, {
       isSensor: false,
       label: "playerCollider",
     });
@@ -37,6 +40,23 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
     this.setFixedRotation();
     this.width = width;
     this.height = height;
+    this.maxHP, this.HP = 4;
+
+    this.scene.add.text(
+      10,
+      10,
+      `HP:`,
+      {
+        font: "24px Arial",
+        color: "#ed1c24",
+      }
+    ).setDepth(15).setScrollFactor(0);
+    this.healthbar = this.scene.add.sprite(
+      85,
+      23,
+      "gui",
+      "gui0_22"
+    ).setDepth(15).setAlpha(1).setScale(2, 1).setScrollFactor(0);
   }
 
   static preload(scene: Phaser.Scene) {
@@ -48,6 +68,8 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
     );
     scene.load.animation('knight_anim', 'assets/character/knight_anim.json');
 
+    scene.load.atlas("gui", "assets/gui/gui.png", "assets/gui/gui_atlas.json");
+    scene.load.animation("gui_anim", "assets/gui/gui_anim.json");
   }
 
   update() {
@@ -90,11 +112,11 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
     }
   }
 
-  getHit(): void {
+  getHit(damage: number): void {
     const text = this.scene.add.text(
       this.x,
       this.y - 64,
-      `!!!`,
+      `-${damage}`,
       {
         font: "32px Arial",
         color: "#ed1c24",
@@ -102,8 +124,27 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
     ).setDepth(10);
     setTimeout(() => {
       text.visible = false;
-      this.scene.scene.stop();
-      this.scene.scene.start('GameOverScene');
+      this.HP -= damage;
+      this.healthBarDown();
     }, 600);
+  }
+
+  healthBarDown(): void {
+    switch (this.HP) {
+      case 3:
+        this.healthbar.anims.play("losthp1", true);
+        break;
+      case 2:
+        this.healthbar.anims.play("losthp2", true);
+        break;
+      case 1:
+        this.healthbar.anims.play("losthp3", true);
+        break;
+      case 0:
+        this.healthbar.setVisible(false);
+        break;
+      default:
+        break;
+    }
   }
 }

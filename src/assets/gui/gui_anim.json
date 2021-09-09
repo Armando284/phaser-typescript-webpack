@@ -1,0 +1,116 @@
+{
+    "anims": [
+        {
+            "key": "gethp3",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "gui",
+                    "frame": "gui0_25"
+                },
+                {
+                    "key": "gui",
+                    "frame": "gui0_24"
+                }
+            ]
+        },
+        {
+            "key": "gethp2",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "gui",
+                    "frame": "gui0_24"
+                },
+                {
+                    "key": "gui",
+                    "frame": "gui0_23"
+                }
+            ]
+        },
+        {
+            "key": "gethp1",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "gui",
+                    "frame": "gui0_23"
+                },
+                {
+                    "key": "gui",
+                    "frame": "gui0_22"
+                }
+            ]
+        },
+        {
+            "key": "losthp3",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "gui",
+                    "frame": "gui0_24"
+                },
+                {
+                    "key": "gui",
+                    "frame": "gui0_25"
+                }
+            ]
+        },
+        {
+            "key": "losthp2",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "gui",
+                    "frame": "gui0_23"
+                },
+                {
+                    "key": "gui",
+                    "frame": "gui0_24"
+                }
+            ]
+        },
+        {
+            "key": "losthp1",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "gui",
+                    "frame": "gui0_22"
+                },
+                {
+                    "key": "gui",
+                    "frame": "gui0_23"
+                }
+            ]
+        },
+        {
+            "key": "die",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "gui",
+                    "frame": "gui0_25"
+                },
+                {
+                    "key": "gui",
+                    "frame": "gui0_10"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,36 @@
+{
+    "anims": [
+        {
+            "key": "fx_13",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 9,
+            "frames": [
+                {
+                    "key": "fx_13",
+                    "frame": "13_0"
+                },
+                {
+                    "key": "fx_13",
+                    "frame": "13_1"
+                },
+                {
+                    "key": "fx_13",
+                    "frame": "13_2"
+                },
+                {
+                    "key": "fx_13",
+                    "frame": "13_3"
+                },
+                {
+                    "key": "fx_13",
+                    "frame": "13_4"
+                },
+                {
+                    "key": "fx_13",
+                    "frame": "13_5"
+                }
+            ]
+        }
+    ]
+}

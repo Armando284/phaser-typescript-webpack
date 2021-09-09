@@ -1,0 +1,36 @@
+{
+    "anims": [
+        {
+            "key": "fx_5",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "circle_5",
+                    "frame": "5_0"
+                },
+                {
+                    "key": "circle_5",
+                    "frame": "5_1"
+                },
+                {
+                    "key": "circle_5",
+                    "frame": "5_2"
+                },
+                {
+                    "key": "circle_5",
+                    "frame": "5_3"
+                },
+                {
+                    "key": "circle_5",
+                    "frame": "5_4"
+                },
+                {
+                    "key": "circle_5",
+                    "frame": "5_5"
+                }
+            ]
+        }
+    ]
+}

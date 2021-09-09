@@ -1,0 +1,32 @@
+{
+    "anims": [
+        {
+            "key": "sword_cut",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 9,
+            "frames": [
+                {
+                    "key": "fx_8",
+                    "frame": "8_0"
+                },
+                {
+                    "key": "fx_8",
+                    "frame": "8_1"
+                },
+                {
+                    "key": "fx_8",
+                    "frame": "8_2"
+                },
+                {
+                    "key": "fx_8",
+                    "frame": "8_3"
+                },
+                {
+                    "key": "fx_8",
+                    "frame": "8_4"
+                }
+            ]
+        }
+    ]
+}

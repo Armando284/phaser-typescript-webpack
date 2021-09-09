@@ -1,0 +1,40 @@
+{
+    "anims": [
+        {
+            "key": "fx_3",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "circle_3",
+                    "frame": "3_0"
+                },
+                {
+                    "key": "circle_3",
+                    "frame": "3_1"
+                },
+                {
+                    "key": "circle_3",
+                    "frame": "3_2"
+                },
+                {
+                    "key": "circle_3",
+                    "frame": "3_3"
+                },
+                {
+                    "key": "circle_3",
+                    "frame": "3_4"
+                },
+                {
+                    "key": "circle_3",
+                    "frame": "3_5"
+                },
+                {
+                    "key": "circle_3",
+                    "frame": "3_6"
+                }
+            ]
+        }
+    ]
+}

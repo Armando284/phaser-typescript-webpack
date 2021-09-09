@@ -1,0 +1,32 @@
+{
+    "anims": [
+        {
+            "key": "fx_4",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 9,
+            "frames": [
+                {
+                    "key": "circle_4",
+                    "frame": "4_0"
+                },
+                {
+                    "key": "circle_4",
+                    "frame": "4_1"
+                },
+                {
+                    "key": "circle_4",
+                    "frame": "4_2"
+                },
+                {
+                    "key": "circle_4",
+                    "frame": "4_3"
+                },
+                {
+                    "key": "circle_4",
+                    "frame": "4_4"
+                }
+            ]
+        }
+    ]
+}

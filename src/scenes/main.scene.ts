@@ -1,6 +1,7 @@
 import Player from '../characters/player';
 import Goblin from '../enemies/goblin';
 import { width, height } from '../helpers/screen.helper';
+import MapSection from '../interfaces/map_section.interface';
 
 export default class MainScene extends Phaser.Scene {
 
@@ -8,6 +9,8 @@ export default class MainScene extends Phaser.Scene {
   goblin: Goblin;
   width: number;
   height: number;
+  music: any;
+  staff: Phaser.GameObjects.Sprite;
 
   constructor() {
     super('MainScene');
@@ -19,6 +22,13 @@ export default class MainScene extends Phaser.Scene {
     this.load.image('tiles', '../assets/map/[Base]BaseChip_pipo.png');
     this.load.image('reliebe', '../assets/map/[A]Grass1-Dirt2_pipo.png');
     this.load.tilemapTiledJSON('map', '../assets/map/welcome.json');
+    this.load.audio('scene_main_audio', '../assets/musics/theme-4.ogg');
+    this.load.atlas(
+      "items",
+      "assets/gui/items.png",
+      "assets/gui/items_atlas.json"
+    );
+
     Player.preload(this);
     Goblin.preload(this);
   }
@@ -47,11 +57,25 @@ export default class MainScene extends Phaser.Scene {
     const layer3 = map.createLayer('objects', tileset, 0, 0);
     layer3.setCollisionByProperty({ obstacle: true })
       .setDepth(10);
+
     this.matter.world.convertTilemapLayer(layer3);
 
+    this.music = this.sound.add('scene_main_audio');
+    this.music.volume = 0.25;
+    this.music.loop = true;
+    this.music.play();
+
+    this.staff = this.matter.add.sprite(24 * 32, 24 * 32, 'items', 'item_61');
+
+    const playerPos: MapSection = {
+      xStart: 0,
+      yStart: 60,
+      xEnd: 160,
+      yEnd: 160
+    };
     this.player = new Player({
       scene: this,
-      ...this.randomPos(4),
+      ...this.randomPos(playerPos),
       texture: 'knight',
       frame: 'preview_0',
     });
@@ -62,10 +86,15 @@ export default class MainScene extends Phaser.Scene {
       left: Phaser.Input.Keyboard.KeyCodes.A,
       right: Phaser.Input.Keyboard.KeyCodes.D,
     });
-
+    const goblinPos: MapSection = {
+      xStart: 0,
+      yStart: 256,
+      xEnd: map.widthInPixels,
+      yEnd: map.heightInPixels
+    }
     this.goblin = new Goblin({
       scene: this,
-      ...this.randomPos(),
+      ...this.randomPos(goblinPos),
       texture: 'goblin',
       frame: 'enemy_19_0',
     });
@@ -82,24 +111,50 @@ export default class MainScene extends Phaser.Scene {
       // console.log('*****************************');
       // console.log('bodyB', bodyB);
 
-      if (bodyA.gameObject?.tile?.properties.thorns && bodyB.label === 'playerCollider') this.player.getHit();
+      if (bodyA.gameObject?.tile?.properties.thorns && bodyB.label === 'playerCollider') this.player.getHit(0.5);
 
-      if (bodyA.label === 'playerCollider' && bodyB.label === 'goblinCollider') this.player.getHit();
+      if (bodyA.label === 'playerCollider' && bodyB.label === 'goblinCollider') {
+        this.player.getHit(1);
+        const position = new Phaser.Math.Vector2(this.player.x, this.player.y);
+        const force = new Phaser.Math.Vector2(100, 1);
+        this.goblin.applyForceFrom(position, force);
+      }
 
       if (bodyA.label === 'playerSensor' && bodyB.label === 'goblinSensor') this.goblin.chase(this.player);
     });
 
   }
 
-  randomPos(section: number = 1) {
-    return {
-      x: Math.random() * (this.width / section),
-      y: Math.random() * (this.height / section)
-    }
+  randomPos({ xStart = 1, yStart = 1, xEnd = 1, yEnd = 1 }: MapSection): { x: number, y: number } {
+    let [x, y] = [0, 0];
+
+    const randomPosNumber = (from: number, to: number): number => {
+      let pos: number = Math.random() * to;
+      if (pos <= from) pos += from - pos;
+      return pos;
+    };
+
+    x = randomPosNumber(xStart, xEnd);
+    y = randomPosNumber(yStart, yEnd);
+
+    return { x, y }
+  }
+
+  gameOver(): void {
+    this.music.stop();
+    this.scene.stop();
+    this.scene.start('GameOverScene');
+  }
+
+  gameWin(): void {
+    this.music.stop();
+    this.scene.stop();
+    this.scene.start('GameOverScene');
   }
 
   update() {
     this.player?.update();
     this.goblin?.update();
+    if (this.player.HP <= 0) this.gameOver();
   }
 }

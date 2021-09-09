@@ -1,25 +1,25 @@
 import { width, height } from '../helpers/screen.helper';
 
-export default class GameOverScene extends Phaser.Scene {
+export default class GameWinScene extends Phaser.Scene {
 
-  gameover: Phaser.GameObjects.Image;
+  gamewin: Phaser.GameObjects.Image;
   width: number;
   height: number;
   music: any;
 
   constructor() {
-    super('GameOverScene');
+    super('GameWinScene');
     this.width = width;
     this.height = height;
   }
 
   preload() {
-    this.load.image('over', '../assets/ui/game-over.png');
-    this.load.audio('gameover_audio', '../assets/musics/theme-13.ogg');
+    this.load.image('win', '../assets/ui/game-win.png');
+    this.load.audio('gamewin_audio', '../assets/musics/theme-2.ogg');
   }
 
   create() {
-    this.gameover = this.add.image(this.width / 2, this.height / 2, 'over')
+    this.gamewin = this.add.image(this.width / 2, this.height / 2, 'over')
       .setScrollFactor(0)
       .setDepth(20)
       .setInteractive({ cursor: 'pointer' });
@@ -29,7 +29,7 @@ export default class GameOverScene extends Phaser.Scene {
     this.music.loop = true;
     this.music.play();
 
-    this.gameover.on('pointerdown', () => {
+    this.gamewin.on('pointerdown', () => {
       this.scene.stop();
       this.music.stop();
       this.scene.start('WelcomeScene');
