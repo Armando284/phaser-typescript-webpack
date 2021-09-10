@@ -1,3 +1,4 @@
+import Goblin from '../enemies/goblin';
 import { width, height } from '../helpers/screen.helper';
 
 export default class Player extends Phaser.Physics.Matter.Sprite {
@@ -8,6 +9,9 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
   maxHP: number;
   HP: number;
   healthbar: Phaser.GameObjects.Sprite;
+  item: Phaser.Physics.Matter.Sprite;
+  trigger: boolean;
+
 
   constructor(data: any) {
     const {
@@ -57,6 +61,9 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
       "gui",
       "gui0_22"
     ).setDepth(15).setAlpha(1).setScale(2, 1).setScrollFactor(0);
+    this.trigger = false;
+    this.onClickAttacker();
+
   }
 
   static preload(scene: Phaser.Scene) {
@@ -70,6 +77,14 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
 
     scene.load.atlas("gui", "assets/gui/gui.png", "assets/gui/gui_atlas.json");
     scene.load.animation("gui_anim", "assets/gui/gui_anim.json");
+
+    scene.load.image("fireball", "assets/items/fireball.png");
+    scene.load.atlas(
+      "fx_18",
+      "assets/fx/fx_18.png",
+      "assets/fx/fx_18_atlas.json"
+    );
+    scene.load.animation("fx_18_anim", "assets/fx/fx_18_anim.json");
   }
 
   update() {
@@ -91,6 +106,8 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
       this.setVelocity(0, 0);
       this.anims.stop();
     }
+
+    if (this.item) this.item.body.position = { x: this.x, y: this.y };
   }
 
   move(playerVelocity: Phaser.Math.Vector2): void {
@@ -112,7 +129,8 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
     }
   }
 
-  getHit(damage: number): void {
+  getHit(damage: number) {
+    if (this.HP <= 0) return false;
     const text = this.scene.add.text(
       this.x,
       this.y - 64,
@@ -147,4 +165,113 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
         break;
     }
   }
+
+  getItem(item: Phaser.Physics.Matter.Sprite) {
+    this.item = item;
+    this.item.body.position = { x: this.x, y: this.y };
+  }
+
+  onClickAttacker() {
+    const self = this;
+
+    this.scene.input.on(
+      "pointerdown",
+      (pointer: any) => {
+        if (this.trigger) return false;
+
+        this.trigger = true;
+        setTimeout(() => {
+          this.trigger = false;
+        }, 1000);
+        if (this.item) {
+          const angle =
+            Phaser.Math.RAD_TO_DEG *
+            Phaser.Math.Angle.Between(
+              this.item.x,
+              this.item.y,
+              pointer.x + this.scene.cameras.main.scrollX,
+              pointer.y + this.scene.cameras.main.scrollY
+            );
+
+          this.item.setAngle(angle + 45);
+
+          const fireball = this.scene.matter.add.image(
+            this.x,
+            this.y - 32,
+            "fireball"
+          ).setAngle(angle)
+            .setFixedRotation()
+            .setName("fireball")
+            .setFrictionAir(0.75)
+            .body.gameObject
+            .setDisplayOrigin(0, 0)
+            .setSensor(true);
+
+          const shotToX = pointer.x + this.scene.cameras.main.scrollX;
+          const shotToY = pointer.y + this.scene.cameras.main.scrollY;
+
+          const distance = Phaser.Math.Distance.Between(
+            this.x,
+            this.y,
+            shotToX,
+            shotToY
+          );
+
+          const duration = distance * 10;
+
+          const tween = this.scene.tweens.add({
+            targets: fireball,
+            x: shotToX,
+            y: shotToY,
+            duration: duration,
+            onComplete: function () {
+              self.scene.matter.world.remove(fireball);
+              fireball.visible = false;
+              fireball.destroy;
+            },
+          });
+
+          this.createMagicAndEnemyCollision(
+            fireball,
+            tween
+          );
+        }
+      },
+      this
+    );
+  }
+
+  createMagicAndEnemyCollision(magicball: Phaser.Physics.Matter.Image, tween: any) {
+    this.scene.matterCollision.addOnCollideStart({
+      objectA: [magicball],
+      callback: (other: any) => {
+        if (
+          other.bodyB.label == "goblinCollider"
+        ) {
+          const enemy: Goblin = other.gameObjectB;
+          const damage = 1;
+
+          enemy.getHit(damage);
+          tween.stop();
+
+          let fx = this.scene.matter.add
+            .sprite(enemy.x, enemy.y, "fx_18")
+            .body.gameObject
+            .setSensor(true);
+
+          fx.anims.play("fx_18", true);
+          setTimeout(() => {
+            this.scene.matter.world.remove(fx);
+            fx.visible = false;
+          }, 600);
+
+          this.scene.matter.world.remove(magicball);
+          magicball.visible = false;
+          magicball.destroy;
+        }
+      },
+      context: this.scene,
+    });
+  }
+
 }

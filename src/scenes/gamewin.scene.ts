@@ -14,17 +14,18 @@ export default class GameWinScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('win', '../assets/ui/game-win.png');
+    this.load.image('win', '../assets/ui/you-win.jpg');
     this.load.audio('gamewin_audio', '../assets/musics/theme-2.ogg');
   }
 
   create() {
-    this.gamewin = this.add.image(this.width / 2, this.height / 2, 'over')
+    this.gamewin = this.add.image(this.width / 2, this.height / 2, 'win')
+      .setScale(0.5)
       .setScrollFactor(0)
       .setDepth(20)
       .setInteractive({ cursor: 'pointer' });
 
-    this.music = this.sound.add('gameover_audio');
+    this.music = this.sound.add('gamewin_audio');
     this.music.volume = 0.25;
     this.music.loop = true;
     this.music.play();

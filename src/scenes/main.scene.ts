@@ -10,7 +10,7 @@ export default class MainScene extends Phaser.Scene {
   width: number;
   height: number;
   music: any;
-  staff: Phaser.GameObjects.Sprite;
+  staff: Phaser.Physics.Matter.Sprite;
 
   constructor() {
     super('MainScene');
@@ -65,17 +65,12 @@ export default class MainScene extends Phaser.Scene {
     this.music.loop = true;
     this.music.play();
 
-    this.staff = this.matter.add.sprite(24 * 32, 24 * 32, 'items', 'item_61');
+    this.staff = this.matter.add.sprite(24 * 32, 24 * 32, 'items', 'item_61').setName('staff').body.gameObject.setCircle(40).setSensor(true).setDisplayOrigin(-8, 40);
 
-    const playerPos: MapSection = {
-      xStart: 0,
-      yStart: 60,
-      xEnd: 160,
-      yEnd: 160
-    };
     this.player = new Player({
       scene: this,
-      ...this.randomPos(playerPos),
+      x: 15 * 32,
+      y: 4 * 32,
       texture: 'knight',
       frame: 'preview_0',
     });
@@ -115,12 +110,24 @@ export default class MainScene extends Phaser.Scene {
 
       if (bodyA.label === 'playerCollider' && bodyB.label === 'goblinCollider') {
         this.player.getHit(1);
-        const position = new Phaser.Math.Vector2(this.player.x, this.player.y);
-        const force = new Phaser.Math.Vector2(100, 1);
-        this.goblin.applyForceFrom(position, force);
+        this.goblin.startAttack();
       }
 
       if (bodyA.label === 'playerSensor' && bodyB.label === 'goblinSensor') this.goblin.chase(this.player);
+
+      if (bodyA.gameObject?.name || bodyB.gameObject?.name) {
+        if (
+          (bodyA.label === 'playerCollider' && bodyB.gameObject.name === 'staff')
+          ||
+          (bodyB.label === 'playerCollider' && bodyA.gameObject.name === 'staff')
+        ) this.player.getItem(this.staff);
+      }
+    });
+
+    this.matter.world.on('collisionend', (event: any, bodyA: any, bodyB: any) => {
+      if (bodyA.label === 'playerCollider' && bodyB.label === 'goblinCollider') {
+        this.goblin.stopAttack();
+      }
     });
 
   }
@@ -140,21 +147,27 @@ export default class MainScene extends Phaser.Scene {
     return { x, y }
   }
 
-  gameOver(): void {
+  endScene() {
+    this.player.setToSleep();
+    this.goblin.setToSleep();
     this.music.stop();
     this.scene.stop();
+  }
+
+  gameOver(): void {
+    this.endScene();
     this.scene.start('GameOverScene');
   }
 
   gameWin(): void {
-    this.music.stop();
-    this.scene.stop();
-    this.scene.start('GameOverScene');
+    this.endScene();
+    this.scene.start('GameWinScene');
   }
 
   update() {
     this.player?.update();
     this.goblin?.update();
     if (this.player.HP <= 0) this.gameOver();
+    if (this.goblin.HP <= 0 && this.player.HP > 0) this.gameWin();
   }
 }

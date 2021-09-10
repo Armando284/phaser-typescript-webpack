@@ -10,6 +10,7 @@ export default class Goblin extends Phaser.Physics.Matter.Sprite {
   SPEED: number;
   HP: number;
   healthbar: Phaser.GameObjects.Sprite;
+  attacking: any;
 
   constructor(data: any) {
     const {
@@ -55,6 +56,9 @@ export default class Goblin extends Phaser.Physics.Matter.Sprite {
       "gui",
       "gui0_22"
     ).setDepth(15).setAlpha(1).setScale(1, 0.5);
+
+    this.startAttack();
+    this.stopAttack();
   }
 
   static preload(scene: Phaser.Scene) {
@@ -73,8 +77,8 @@ export default class Goblin extends Phaser.Physics.Matter.Sprite {
   update() {
     if (this.target == null) this.anims.stop();
     if (this.target) {
-      const targetx = this.target.x <= this.x ? this.target.x + 14 : this.target.x - 14;
-      const targety = this.target.y <= this.y ? this.target.y + 14 : this.target.y - 14;
+      const targetx = this.target.x;
+      const targety = this.target.y;
       const [dx, dy] = [targetx - this.x, targety - this.y];
       const goblinVelocity = {
         x: Math.sign(dx) * this.SPEED,
@@ -135,5 +139,23 @@ export default class Goblin extends Phaser.Physics.Matter.Sprite {
       default:
         break;
     }
+  }
+
+  startAttack() {
+    this.attacking = setInterval(() => {
+      this.attack();
+      setTimeout(() => {
+        this.setTint(0xffffff);
+      }, 300);
+    }, 1000);
+  }
+
+  stopAttack() {
+    clearInterval(this.attacking);
+  }
+
+  attack() {
+    this.setTint(0xaa9999);
+    this.target?.getHit(1);
   }
 }
